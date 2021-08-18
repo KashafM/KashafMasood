@@ -1,7 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
-import getAdvice from '../getAdvice'
 
 export default function Advice() {
 
@@ -33,4 +32,20 @@ export default function Advice() {
         </Grid>
     </div>
   );
+}
+
+function getAdvice()
+{
+    const resDiv = document.querySelector("#adviceBox")
+    fetch("https://api.adviceslip.com/advice").then(response => {
+        return response.json();
+    
+    }).then(adviceData => {
+        const Adviceobj = adviceData.slip;
+        console.log(Adviceobj)
+        resDiv.innerHTML = `<h1>${Adviceobj.advice}</h1>`;
+    }).catch(error => {
+        console.log(error);
+    });
+
 }
